@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.http import Http404
 
@@ -15,5 +15,7 @@ def index(request):
 # new view added in tutorial part 3
 
 def detail(request, fanfic_id):
-	# as just a stub
-	return HttpResponse("You're looking at fanfic %s." % fanfic_id)
+	# now modifiying this to return 404 if fanfic
+	# does not exist
+	fanfic = get_object_or_404(Fanfic, pk=fanfic_id)
+	return render(request, 'fic/detail.html', {'fanfic':fanfic})
